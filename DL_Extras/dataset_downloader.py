@@ -1,4 +1,5 @@
 def Download_Kaggle_Dataset(dataset_name, extraction_path, type = "competition"):
+  import os
   """
   Takes the competition or dataset name and downloads it into the colab's content space.
   Note: Before using this function please download the kaggle.json or API key from the kaggle.
@@ -9,16 +10,16 @@ def Download_Kaggle_Dataset(dataset_name, extraction_path, type = "competition")
   type (str): whether to download competition dataset or simple dataset, default competition
               options: competition or dataset.
   """
-  !rm -r ~/.kaggle
-  !mkdir ~/.kaggle
-  !mv ./kaggle.json ~/.kaggle/
-  !chmod 600 ~/.kaggle/kaggle.json
-  !kaggle datasets list
+  os.system('rm -r ~/.kaggle')
+  os.system('mkdir ~/.kaggle')
+  os.system('mv ./kaggle.json ~/.kaggle/')
+  os.system('chmod 600 ~/.kaggle/kaggle.json')
+  os.system('kaggle datasets list')
 
   if type == "competition":
-    !kaggle competitions download -c $dataset_name
+    os.system(f'kaggle competitions download -c {dataset_name}')
   elif type == "dataset":
-    !kaggle datasets download $dataset_name
+    os.system(f'kaggle datasets download {dataset_name}')
 
-  !mkdir $dataset_name
-  !unzip "/content/"$dataset_name -d $extraction_path
+  os.system(f'mkdir {dataset_name}')
+  os.system(f'unzip "/content/"{dataset_name} -d {extraction_path}')
